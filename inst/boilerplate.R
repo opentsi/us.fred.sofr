@@ -43,7 +43,7 @@ archive_import_history(vintages_dt, repository_path = ".")
 ## Step 5: Write Metadata
 # Edit data-raw/metadata.yaml, then validate and render:
 deloRean::render_metadata()
-meta <- read_meta(".")
+meta <- opentimeseries::read_meta(".")
 deloRean::validate_metadata(meta)
 
 

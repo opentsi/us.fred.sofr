@@ -19,9 +19,11 @@
     "all": "last"
   },
   "dim_order": [],
-  "hierarchy": {},
+  "hierarchy": {
+    "sofr": {}
+  },
   "labels": {
     "dimnames": {}
   },
-  "update_checksum": "e20c5642836ac49c0a867f1dd7fa201b2a77303b174769710eaeb40ea6e9093c"
+  "update_checksum": ""
 }

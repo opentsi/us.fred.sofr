@@ -44,7 +44,9 @@ dim_order: []
 
 # Hierarchical structure of dimensions
 # Nest dimensions according to your key structure
-hierarchy: {}
+hierarchy: {
+  "sofr"
+}
 
 # Human-readable labels for dimensions and their values
 # dimnames: labels for dimension names
