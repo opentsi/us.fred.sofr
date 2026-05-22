@@ -1,45 +1,24 @@
-#' Process FSO INDPAU Data
+#' Process SOFRINDEX Data into series.csv
 #'
-#' Fetches all time series in the ch.fso.indpau collection from the KOF
-#' Time Series Database and writes each to its key.csv
+#' Fetches the most recent vintage of the SOFR Index (SOFRINDEX)
+#' from FRED and writes it to \code{data-raw/sofr/series.csv}.
 #'
-#' @importFrom tsdbapi read_dataset_keys set_config read_ts
-#' @param key API key for the KOF Time Series Database.
-#' @return Invisibly returns a character vector of output file paths.
+#' @importFrom alfred get_fred_series
+#' @param key Directory name under \code{data-raw/} where the CSV is written.
+#'   Defaults to \code{"sofr"}.
+#' @return Invisibly returns the output file path.
 #' @export
-process_data <- function(key = key) {
-  set_config(api_key = key)
+process_data <- function(key = "sofr") {
+  ts_data <- alfred::get_fred_series("SOFRINDEX", "sofr")
 
-  keys <- read_dataset_keys("ch.fso.indpau")
-  tsl <- read_ts(keys)
+  ts_df <- data.frame(
+    time  = as.Date(ts_data$date),
+    value = ts_data$sofr
+  )
 
-  out_paths <- lapply(names(tsl), function(k) {
-    ts_obj <- tsl[[k]]
-    # remove prefix so it matches with current data
-    k <- sub("^ch\\.fso\\.indpau\\.", "", k)
-    print(k)
+  output_path <- file.path(".", "data-raw/csv","idx.csv")
+  write.csv(ts_df, file = output_path, row.names = FALSE)
+  message(sprintf("Latest vintage of SOFRINDEX written to %s", output_path))
 
-    output_path <- file.path("data-raw", "csv", paste0(k, ".csv"))
-
-    ts_time <- time(ts_obj)
-    freq <- frequency(ts_obj)
-    values <- as.numeric(ts_obj)
-
-    if (freq == 12) {
-      years <- floor(ts_time)
-      months <- round((ts_time - years) * 12) + 1
-      ts_dates <- as.Date(sprintf("%d-%02d-01", years, months))
-    } else {
-      stop(sprintf("Unsupported frequency: %d", freq))
-    }
-
-    ts_df <- data.frame(time = ts_dates, value = values)
-    write.csv(ts_df, file = output_path, row.names = FALSE, quote = FALSE)
-    message(sprintf("Written: %s", output_path))
-    output_path
-  })
-
-  invisible(unlist(out_paths))
+  invisible(output_path)
 }
-
-# try it out here

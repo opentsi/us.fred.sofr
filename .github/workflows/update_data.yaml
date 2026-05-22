@@ -5,17 +5,15 @@ name: Update Data
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 10 1,5,15 * *"
-# triggers at 10:00 AM UTC on the 1st, 5th, and 15th of every month
+    - cron: "13 0 * * *"
+# triggers every day at 13 o'clock UTC
 
-# needed only for transfer
-# permissions:
-#   contents: write  # grants the GITHUB_TOKEN write access to the repo (allows automatic updates to happen)
+
 
 
 jobs:
   setup:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04-arm
     container: devxygmbh/r-alpine:4-3.21
     steps:
       - name: Manual Checkout

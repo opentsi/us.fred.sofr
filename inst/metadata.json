@@ -1,0 +1,29 @@
+{
+  "country": "us",
+  "provider": "fred",
+  "dataset": "sofr",
+  "title": {
+    "en": "SOFR Index"
+  },
+  "source_name": {
+    "en": "Federal Reserve Bank of St. Louis (FRED)"
+  },
+  "source_url": "https://fred.stlouisfed.org/series/SOFRINDEX",
+  "dataset_frequency": "D",
+  "units": {
+    "all": {
+      "en": "Index"
+    }
+  },
+  "aggregate": {
+    "all": "last"
+  },
+  "dim_order": [],
+  "hierarchy": {
+    "sofr": {}
+  },
+  "labels": {
+    "dimnames": {}
+  },
+  "update_checksum": "5893fccf400042d0d432c37ae7c4bb46b907a6869dcf8faa5e8bdb7b6ad4cab6"
+}
