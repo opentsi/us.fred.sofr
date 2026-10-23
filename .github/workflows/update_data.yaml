@@ -3,9 +3,9 @@ name: Update Data
 
 # workflow triggered both manually and by schedule
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: "0 13 * * *"
+   workflow_dispatch:
+  # schedule:
+  #   - cron: "0 13 * * *"
 # triggers every day at 13 o'clock UTC
 
 
